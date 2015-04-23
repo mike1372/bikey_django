@@ -1,0 +1,104 @@
+<h2>{{ bike.name }}</h2>
+
+<p>Make: {{ bike.bike_make }}</p>
+<p>Model: {{ bike.bike_model }}</p>
+<p>Type: {{ bike.bike_type }}</p>
+<p>Colour: {{ bike.colour }}</p>
+<p>Weight: {{ bike.weight }} kg</p>
+<p>Wheel diameter: {{ bike.wheel_diameter }} mm</p>
+
+<h3>Chain rings for this bike:</h3>
+
+{% if chainrings_list %}
+    {% for chainring in chainrings_list %}
+        {{ chainring.size }}
+    {% endfor %}
+{% else %}
+    There are currently no chain rings assigned to this bike, please add some using the link below
+{% endif %}
+
+<br><br>
+
+<form action="{% url 'bikes:add_chainring' bike.id %}" method="post">
+{% csrf_token %}
+<label for="cr">Add a chain ring</label>
+<input type="text" name="chainring" id="cr" value="42" />
+<input type="submit" value="Add" />
+</form>
+
+<h3>Cassette sprockets for this bike:</h3>
+
+{% if cassettesprockets_list %}
+    {% for cassettesprocket in cassettesprockets_list %}
+        {{ cassettesprocket.size }}
+    {% endfor %}
+{% else %}
+    There are currently no cassette sprockets assigned to this bike, please add some using the link below
+{% endif %}
+
+<br><br>
+
+<form action="{% url 'bikes:add_cassettesprocket' bike.id %}" method="post">
+{% csrf_token %}
+<label for="cs">Add a cassette sprocket</label>
+<input type="text" name="cassettesprocket" id="cs" value="12" />
+<input type="submit" value="Add" />
+</form>
+
+<h3>Table of drive ratio combinations from the above rings and sprockets (in gear inches):</h3>
+<table border="2">
+{% for ratios in ratio_matrix %}
+		<tr>
+		{% for ratio in ratios %}
+				<td>{{ ratio }}</td>
+		{% endfor %}
+		</tr>
+{% endfor %}
+</table>
+
+<h3>Speeds in km/h for each of the above ratios:</h3>
+
+<form action="{% url 'bikes:show' bike.id %}" method="post">
+    {% csrf_token %}
+    {{ cadenceform }}
+    <input type="submit" value="Calculate" />
+</form>
+
+<!-- <form action="{% url 'bikes:show' bike.id %}" id="cad" method="post">
+<label name="cadence" id="cad">Please select your cadence:</label>
+<select>
+		<option value="60">60 rpm</option>
+		<option value="90">90 rpm</option>
+		<option value="120">120 rpm</option>
+		<option value="180">180 rpm</option>
+</select>
+<input type="submit" value="Calculate" />
+</form> -->
+
+<table border="2">
+{% for speeds in ratio_matrix2 %}
+		<tr>
+		{% for speed in speeds %}
+				<td>{{ speed }}</td>
+		{% endfor %}
+		</tr>
+{% endfor %}
+</table>
+
+<br>
+
+<button><a href="{% url 'bikes:index' %}">Home</a></button>
+<button><a href="{% url 'bikes:about' %}">About</a></button>
+<button><a href="{% url 'bikes:new' %}">Add new bike</a></button>
+<button><a href="{% url 'bikes:edit' bike.id %}">Edit bike</a></button>
+
+<form style='display:inline;' action="{% url 'bikes:delete' bike.id %}" method="post">
+{% csrf_token %}
+<input type="submit" onclick="return confirm('Are you sure?')" value="Delete bike" />
+</form>
+
+
+
+
+
+

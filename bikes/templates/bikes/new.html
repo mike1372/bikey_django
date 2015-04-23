@@ -1,0 +1,29 @@
+<h2>New Bike</h2>
+
+<form action="{% url 'bikes:add' %}" method="post">
+{% csrf_token %}
+<p>
+<label for="name">Name</label>
+<input type="text" name="name" id="name" value="{{ bike.name }}" />
+</p><p>
+<label for="bike_make">Make</label>
+<input type="text" name="bike_make" id="bike_make" value="{{ bike.bike_make }}" />
+</p><p>
+<label for="bike_model">Model</label>
+<input type="text" name="bike_model" id="bike_model" value="{{ bike.bike_model }}" />
+</p><p>
+<label for="bike_type">Type</label>
+<input type="text" name="bike_type" id="bike_type" value="{{ bike.bike_type }}" />
+</p><p>
+<label for="colour">Colour</label>
+<input type="text" name="colour" id="colour" value="{{ bike.colour }}" />
+</p><p>
+<label for="weight">Weight</label>
+<input type="text" name="weight" id="weight" value="{{ bike.weight }}" />
+</p><p>
+<label for="wheel_diameter">Wheel diameter</label>
+<input type="text" name="wheel_diameter" id="wheel_diameter" value="{{ bike.wheel_diameter }}" />
+</p><p>
+<input type="submit" value="Add" />
+</p>
+</form>

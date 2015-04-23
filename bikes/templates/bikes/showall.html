@@ -1,0 +1,11 @@
+<h2>All Bikes</h2>
+
+<p>Click on a bike to view its details</p>
+
+{% if bikes_list %}
+    {% for bike in bikes_list %}
+        <p><a href="{% url 'bikes:detail' bike.id %}">{{ bike.name }}</a></p>
+    {% endfor %}
+{% else %}
+    <p>Sorry no bikes have been created yet.</p>
+{% endif %}

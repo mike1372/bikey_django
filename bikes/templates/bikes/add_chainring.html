@@ -1,0 +1,12 @@
+<h2>New Chain Ring</h2>
+
+<form action="{% url 'bikes:add_cr' bike.id %}" method="post">
+{% csrf_token %}
+
+    <input type="text" name="chainring" />
+    
+
+<input type="submit" value="Create" />
+</form>
+
+
